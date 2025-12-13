@@ -1,10 +1,11 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.ResultSet;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+
         System.out.println("テストです");
 
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -13,20 +14,24 @@ public class Main {
         String user = "appuser";
         String password = "app_pass";
 
-        try (
-            Connection conn = DriverManager.getConnection(url, user, password);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id, title FROM todo")
-        ) {
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
+        Connection conn = DriverManager.getConnection(url, user, password);
+        // conn DBとつながっている変数
+        // DB操作をしたい場合はconnに命令する
 
-                System.out.println(id + " : " + title);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Statement stmt = conn.createStatement();
+        // クエリ使えるよモードになった変数stmt
+
+        ResultSet rs = stmt.executeQuery("SELECT * FROM todo");
+        // クエリを実行して結果をrsに入れる
+        // [
+        //   [1, todoテスト１],
+        //   [2, todoテスト２]
+        // ]
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String title = rs.getString("title");
+            System.out.println(id + ": " + title);
         }
-
     }
 }
