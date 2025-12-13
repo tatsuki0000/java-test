@@ -10,20 +10,19 @@ public class Main {
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         String url = "jdbc:mysql://localhost:3306/tododb";
-        String user = "root";
-        String password = "password";
+        String user = "appuser";
+        String password = "app_pass";
 
         try (
             Connection conn = DriverManager.getConnection(url, user, password);
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id, title, done FROM todo")
+            ResultSet rs = stmt.executeQuery("SELECT id, title FROM todo")
         ) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                boolean done = rs.getBoolean("done");
 
-                System.out.println(id + " : " + title + " : " + done);
+                System.out.println(id + " : " + title);
             }
         } catch (Exception e) {
             e.printStackTrace();
