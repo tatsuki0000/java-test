@@ -4,3 +4,10 @@
 
 ## 作成者
 tatsuki0000
+
+## 起動手順
+```
+docker compose build --no-chash
+docker compose up
+curl http://localhost:8080/hello
+```
