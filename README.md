@@ -7,7 +7,7 @@ tatsuki0000
 
 ## 起動手順
 ```
-docker compose build --no-chash
+docker compose build --no-cache
 docker compose up
 curl http://localhost:8080/hello
 ```
